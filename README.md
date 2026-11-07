@@ -11,6 +11,7 @@
 | Area | Structures |
 |---|---|
 | Lists | Singly Linked List (push/erase/find/reverse, destructor-cleaned) |
+| Lists | Doubly Linked List (bidirectional, insert at index, forward/backward traversal) |
 | Stacks | Array Stack (LIFO, exception on underflow) |
 | Queues | Circular Queue (growable ring buffer) |
 

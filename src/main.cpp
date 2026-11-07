@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/SinglyLinkedList.h"
+#include "../include/DoublyLinkedList.h"
 #include "../include/ArrayStack.h"
 #include "../include/CircularQueue.h"
 
@@ -14,6 +15,19 @@ int main() {
     list.reverse();
     std::cout << "reversed:   " << list.toString() << "\n";
     std::cout << "size=" << list.size() << ", contains(15)=" << list.contains(15) << "\n";
+
+    std::cout << "\n=== DoublyLinkedList ===\n";
+    DoublyLinkedList<int> dlist;
+    dlist.pushBack(10); dlist.pushBack(30);
+    dlist.pushFront(5);
+    dlist.insert(2, 20);                    // [5 <-> 10 <-> 20 <-> 30]
+    std::cout << "list:       " << dlist.toString() << "\n";
+    std::cout << "backwards:  " << dlist.toStringReverse() << "\n";
+    dlist.erase(20);
+    std::cout << "erase(20):  " << dlist.toString() << "\n";
+    dlist.reverse();
+    std::cout << "reversed:   " << dlist.toString() << "\n";
+    std::cout << "size=" << dlist.size() << ", contains(10)=" << dlist.contains(10) << "\n";
 
     std::cout << "\n=== ArrayStack ===\n";
     ArrayStack<int> stack;
