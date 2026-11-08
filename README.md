@@ -14,6 +14,7 @@
 | Lists | Doubly Linked List (bidirectional, insert at index, forward/backward traversal) |
 | Stacks | Array Stack (LIFO, exception on underflow) |
 | Queues | Circular Queue (growable ring buffer) |
+| Trees | Binary Search Tree (insert/search/erase, inorder/preorder/postorder) |
 
 ## Build & run
 
@@ -25,7 +26,7 @@ Requires any C++17 compiler (g++ / clang++).
 
 ## Coming next
 
-Doubly Linked List → Binary Search Tree → AVL → Heaps → Hash Table → Graphs (BFS/DFS, Dijkstra). Full plan: [ROADMAP.md](ROADMAP.md).
+Binary Search Tree → AVL → Heaps → Hash Table → Graphs (BFS/DFS, Dijkstra). Full plan: [ROADMAP.md](ROADMAP.md).
 
 ## License
 

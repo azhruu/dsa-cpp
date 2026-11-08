@@ -6,7 +6,7 @@ Each item lands as one complete, tested change.
 - [x] Array Stack
 - [x] Circular Queue (growable)
 - [x] Doubly Linked List
-- [ ] Binary Search Tree (insert/search/delete + traversals)
+- [x] Binary Search Tree (insert/search/delete + traversals)
 - [ ] AVL Tree (rotations)
 - [ ] Max/Min Heap + heap sort
 - [ ] Hash Table (separate chaining)
