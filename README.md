@@ -15,6 +15,7 @@
 | Stacks | Array Stack (LIFO, exception on underflow) |
 | Queues | Circular Queue (growable ring buffer) |
 | Trees | Binary Search Tree (insert/search/erase, inorder/preorder/postorder) |
+| Trees | AVL Tree (self-balancing via rotations, stays O(log n) on sorted input) |
 
 ## Build & run
 

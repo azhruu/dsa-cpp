@@ -4,6 +4,7 @@
 #include "../include/ArrayStack.h"
 #include "../include/CircularQueue.h"
 #include "../include/BinarySearchTree.h"
+#include "../include/AVLTree.h"
 #include <vector>
 
 static std::string join(const std::vector<int>& v) {
@@ -66,6 +67,26 @@ int main() {
     bst.erase(50);                                     // two children (root)
     std::cout << "erase two-child 50: " << bst.toString() << "\n";
     std::cout << "erase missing 99 -> " << bst.erase(99) << ", size=" << bst.size() << "\n";
+
+    std::cout << "\n=== AVLTree ===\n";
+    AVLTree<int> avl;
+    // Sorted input would make a plain BST a 6-deep chain; the AVL
+    // rebalances on every insert and stays shallow.
+    for (int v : {1, 2, 3, 4, 5, 6, 7}) avl.insert(v);
+    std::cout << "inorder:    " << join(avl.inorder()) << "\n";
+    std::cout << "preorder:   " << join(avl.preorder()) << "\n";
+    std::cout << "height=" << avl.height() << ", size=" << avl.size()
+              << ", balanced=" << avl.isBalanced() << "\n";
+    std::cout << "contains(4)=" << avl.contains(4) << ", contains(9)=" << avl.contains(9)
+              << ", insert dup 3 -> " << avl.insert(3) << "\n";
+    avl.erase(4);                                      // root, two children
+    std::cout << "erase root 4: " << avl.toString() << ", height=" << avl.height()
+              << ", balanced=" << avl.isBalanced() << "\n";
+    avl.erase(1);                                      // leaf
+    avl.erase(7);                                      // leaf
+    std::cout << "erase 1, 7:   " << avl.toString() << ", height=" << avl.height()
+              << ", balanced=" << avl.isBalanced() << ", size=" << avl.size() << "\n";
+    std::cout << "erase missing 99 -> " << avl.erase(99) << "\n";
 
     std::cout << "\nAll structures working OK\n";
     return 0;
