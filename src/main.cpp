@@ -5,6 +5,7 @@
 #include "../include/CircularQueue.h"
 #include "../include/BinarySearchTree.h"
 #include "../include/AVLTree.h"
+#include "../include/Heap.h"
 #include <vector>
 
 static std::string join(const std::vector<int>& v) {
@@ -87,6 +88,29 @@ int main() {
     std::cout << "erase 1, 7:   " << avl.toString() << ", height=" << avl.height()
               << ", balanced=" << avl.isBalanced() << ", size=" << avl.size() << "\n";
     std::cout << "erase missing 99 -> " << avl.erase(99) << "\n";
+
+    std::cout << "\n=== MaxHeap / MinHeap ===\n";
+    MaxHeap<int> maxHeap;
+    for (int v : {15, 10, 20, 8, 25, 5}) maxHeap.push(v);
+    std::cout << "max-heap:   " << maxHeap.toString() << ", top=" << maxHeap.top()
+              << ", isHeap=" << maxHeap.isHeap() << "\n";
+    std::cout << "pops (descending): ";
+    while (!maxHeap.empty()) std::cout << maxHeap.pop() << " ";
+    std::cout << "\n";
+    MinHeap<int> minHeap(std::vector<int>{15, 10, 20, 8, 25, 5});  // heapified
+    std::cout << "min-heap:   " << minHeap.toString() << ", top=" << minHeap.top()
+              << ", isHeap=" << minHeap.isHeap() << "\n";
+    std::cout << "pops (ascending):  ";
+    while (!minHeap.empty()) std::cout << minHeap.pop() << " ";
+    std::cout << "\n";
+    try { minHeap.pop(); } catch (const std::exception& e) {
+        std::cout << "pop on empty heap throws: " << e.what() << "\n";
+    }
+
+    std::cout << "\n=== HeapSort ===\n";
+    std::cout << "sorted:     " << join(Heap<int>::heapSort({9, 3, 7, 1, 8, 2, 6, 4, 5})) << "\n";
+    std::cout << "empty:      " << join(Heap<int>::heapSort({})) << "\n";
+    std::cout << "duplicates: " << join(Heap<int>::heapSort({4, 2, 4, 1, 2})) << "\n";
 
     std::cout << "\nAll structures working OK\n";
     return 0;

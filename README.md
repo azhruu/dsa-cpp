@@ -16,6 +16,7 @@
 | Queues | Circular Queue (growable ring buffer) |
 | Trees | Binary Search Tree (insert/search/erase, inorder/preorder/postorder) |
 | Trees | AVL Tree (self-balancing via rotations, stays O(log n) on sorted input) |
+| Heaps | Max/Min Heap (array-backed, push/pop in O(log n), O(n) heapify) + heap sort |
 
 ## Build & run
 

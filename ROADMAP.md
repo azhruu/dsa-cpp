@@ -8,7 +8,7 @@ Each item lands as one complete, tested change.
 - [x] Doubly Linked List
 - [x] Binary Search Tree (insert/search/delete + traversals)
 - [x] AVL Tree (rotations)
-- [ ] Max/Min Heap + heap sort
+- [x] Max/Min Heap + heap sort
 - [ ] Hash Table (separate chaining)
 - [ ] Graph adjacency list + BFS/DFS
 - [ ] Dijkstra shortest path
