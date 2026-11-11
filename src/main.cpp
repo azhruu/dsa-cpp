@@ -6,6 +6,7 @@
 #include "../include/BinarySearchTree.h"
 #include "../include/AVLTree.h"
 #include "../include/Heap.h"
+#include "../include/HashTable.h"
 #include <vector>
 
 static std::string join(const std::vector<int>& v) {
@@ -111,6 +112,32 @@ int main() {
     std::cout << "sorted:     " << join(Heap<int>::heapSort({9, 3, 7, 1, 8, 2, 6, 4, 5})) << "\n";
     std::cout << "empty:      " << join(Heap<int>::heapSort({})) << "\n";
     std::cout << "duplicates: " << join(Heap<int>::heapSort({4, 2, 4, 1, 2})) << "\n";
+
+    std::cout << "\n=== HashTable (separate chaining) ===\n";
+    HashTable<std::string, int> scores(4);   // tiny on purpose: forces collisions
+    scores.insert("alice", 10); scores.insert("bob", 20); scores.insert("carol", 30);
+    scores.insert("dave", 40); scores.insert("erin", 50);
+    std::cout << "table:      " << scores.toString() << "\n";
+    std::cout << "size=" << scores.size() << ", buckets=" << scores.bucketCount()
+              << ", load=" << scores.loadFactor() << "\n";
+    int v = 0;
+    std::cout << "get(bob)=" << (scores.get("bob", v) ? std::to_string(v) : "?")
+              << ", get(mallory)=" << scores.get("mallory", v) << "\n";
+    std::cout << "insert dup alice -> " << scores.insert("alice", 99)
+              << " (value updated: ";
+    scores.get("alice", v);
+    std::cout << v << ")\n";
+    std::cout << "erase(carol) -> " << scores.erase("carol")
+              << ", erase(mallory) -> " << scores.erase("mallory") << "\n";
+    std::cout << "contains(dave)=" << scores.contains("dave")
+              << ", contains(carol)=" << scores.contains("carol")
+              << ", size=" << scores.size() << "\n";
+    std::cout << "after erase: " << scores.toString() << "\n";
+    HashTable<int, std::string> byId;
+    byId.insert(7, "seven"); byId.insert(42, "forty-two");
+    std::string s;
+    std::cout << "int keys:   " << byId.toString()
+              << ", get(42)=" << (byId.get(42, s) ? s : "?") << "\n";
 
     std::cout << "\nAll structures working OK\n";
     return 0;

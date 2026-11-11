@@ -9,7 +9,7 @@ Each item lands as one complete, tested change.
 - [x] Binary Search Tree (insert/search/delete + traversals)
 - [x] AVL Tree (rotations)
 - [x] Max/Min Heap + heap sort
-- [ ] Hash Table (separate chaining)
+- [x] Hash Table (separate chaining)
 - [ ] Graph adjacency list + BFS/DFS
 - [ ] Dijkstra shortest path
 - [ ] Assertion-based test main for every structure
