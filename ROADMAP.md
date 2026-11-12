@@ -10,7 +10,7 @@ Each item lands as one complete, tested change.
 - [x] AVL Tree (rotations)
 - [x] Max/Min Heap + heap sort
 - [x] Hash Table (separate chaining)
-- [ ] Graph adjacency list + BFS/DFS
+- [x] Graph adjacency list + BFS/DFS
 - [ ] Dijkstra shortest path
 - [ ] Assertion-based test main for every structure
 - [ ] CMake build alongside build.sh

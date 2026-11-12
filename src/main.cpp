@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "../include/SinglyLinkedList.h"
 #include "../include/DoublyLinkedList.h"
 #include "../include/ArrayStack.h"
@@ -7,15 +8,17 @@
 #include "../include/AVLTree.h"
 #include "../include/Heap.h"
 #include "../include/HashTable.h"
+#include "../include/Graph.h"
 #include <vector>
 
-static std::string join(const std::vector<int>& v) {
-    std::string out;
+template <typename T>
+static std::string join(const std::vector<T>& v) {
+    std::ostringstream out;
     for (std::size_t i = 0; i < v.size(); ++i) {
-        out += std::to_string(v[i]);
-        if (i + 1 < v.size()) out += " ";
+        if (i) out << " ";
+        out << v[i];
     }
-    return out;
+    return out.str();
 }
 
 int main() {
@@ -138,6 +141,29 @@ int main() {
     std::string s;
     std::cout << "int keys:   " << byId.toString()
               << ", get(42)=" << (byId.get(42, s) ? s : "?") << "\n";
+
+    std::cout << "\n=== Graph (adjacency list) ===\n";
+    Graph<int> graph;
+    // Edges: 1->2, 1->3, 2->4, 3->4, 3->5, 4->6, 5->6
+    for (int v : {1, 2, 3, 4, 5, 6}) graph.addVertex(v);
+    graph.addEdge(1, 2); graph.addEdge(1, 3);
+    graph.addEdge(2, 4); graph.addEdge(3, 4); graph.addEdge(3, 5);
+    graph.addEdge(4, 6); graph.addEdge(5, 6);
+    std::cout << "graph:      " << graph.toString() << "\n";
+    std::cout << "BFS from 1: " << join(graph.bfs(1)) << "\n";
+    std::cout << "DFS from 1: " << join(graph.dfs(1)) << "\n";
+    std::cout << "vertices=" << graph.vertexCount() << ", edges=" << graph.edgeCount()
+              << ", hasEdge(1,3)=" << graph.hasEdge(1, 3)
+              << ", hasEdge(3,1)=" << graph.hasEdge(3, 1) << "\n";
+    std::cout << "addEdge dup 1->2 -> " << graph.addEdge(1, 2) << "\n";
+    graph.removeEdge(3, 5);
+    std::cout << "removeEdge(3,5): " << graph.toString() << "\n";
+    std::cout << "BFS from 99 (missing): '" << join(graph.bfs(99)) << "' (empty)\n";
+    Graph<std::string> roads;
+    roads.addUndirectedEdge("A", "B");
+    roads.addUndirectedEdge("B", "C");
+    std::cout << "undirected: " << roads.toString()
+              << ", DFS from A: " << join(roads.dfs("A")) << "\n";
 
     std::cout << "\nAll structures working OK\n";
     return 0;
