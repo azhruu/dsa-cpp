@@ -1,4 +1,6 @@
+#include <cmath>
 #include <iostream>
+#include <limits>
 #include <sstream>
 #include "../include/SinglyLinkedList.h"
 #include "../include/DoublyLinkedList.h"
@@ -164,6 +166,44 @@ int main() {
     roads.addUndirectedEdge("B", "C");
     std::cout << "undirected: " << roads.toString()
               << ", DFS from A: " << join(roads.dfs("A")) << "\n";
+    std::cout << "unweighted edge weight: " << roads.edgeWeight("A", "B")
+              << ", missing edge weight: " << roads.edgeWeight("A", "C") << "\n";
+
+    std::cout << "\n=== Dijkstra shortest path ===\n";
+    // Classic weighted example: A-B 4, A-C 2, B-C 1, B-D 5, C-D 8,
+    // C-E 10, D-E 2, D-Z 6, E-Z 3. Cheapest A->Z is A-B-D-E-Z = 14.
+    Graph<std::string> map;
+    map.addWeightedEdge("A", "B", 4);
+    map.addWeightedEdge("A", "C", 2);
+    map.addWeightedEdge("B", "C", 1);
+    map.addWeightedEdge("B", "D", 5);
+    map.addWeightedEdge("C", "D", 8);
+    map.addWeightedEdge("C", "E", 10);
+    map.addWeightedEdge("D", "E", 2);
+    map.addWeightedEdge("D", "Z", 6);
+    map.addWeightedEdge("E", "Z", 3);
+    map.addVertex("Q");  // isolated: unreachable from A
+    auto fmtDist = [](double d) {
+        if (d == std::numeric_limits<double>::infinity()) return std::string("inf");
+        if (d == std::floor(d)) return std::to_string(static_cast<long long>(d));
+        return std::to_string(d);
+    };
+    std::map<std::string, double> dist = map.dijkstra("A");
+    std::cout << "distances from A: ";
+    for (const std::string& v : map.vertices()) std::cout << v << "=" << fmtDist(dist[v]) << " ";
+    std::cout << "\n";
+    std::cout << "shortest path A -> Z: " << join(map.shortestPath("A", "Z")) << " (cost 14)\n";
+    std::cout << "shortest path A -> A: " << join(map.shortestPath("A", "A")) << "\n";
+    std::cout << "shortest path A -> Q (unreachable): '" << join(map.shortestPath("A", "Q")) << "' (empty)\n";
+    std::cout << "dijkstra from missing vertex: " << map.dijkstra("nope").size() << " entries (empty)\n";
+    std::cout << "negative weight rejected: addWeightedEdge(A, Z, -1) -> "
+              << map.addWeightedEdge("A", "Z", -1) << "\n";
+    std::cout << "duplicate weighted edge rejected: addWeightedEdge(A, B, 9) -> "
+              << map.addWeightedEdge("A", "B", 9)
+              << ", weight still " << map.edgeWeight("A", "B") << "\n";
+    map.removeEdge("D", "E");
+    std::cout << "after removeEdge(D, E): shortest path A -> Z: "
+              << join(map.shortestPath("A", "Z")) << " (cost 15)\n";
 
     std::cout << "\nAll structures working OK\n";
     return 0;

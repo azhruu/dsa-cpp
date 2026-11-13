@@ -11,6 +11,6 @@ Each item lands as one complete, tested change.
 - [x] Max/Min Heap + heap sort
 - [x] Hash Table (separate chaining)
 - [x] Graph adjacency list + BFS/DFS
-- [ ] Dijkstra shortest path
+- [x] Dijkstra shortest path
 - [ ] Assertion-based test main for every structure
 - [ ] CMake build alongside build.sh

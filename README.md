@@ -18,7 +18,7 @@
 | Trees | AVL Tree (self-balancing via rotations, stays O(log n) on sorted input) |
 | Heaps | Max/Min Heap (array-backed, push/pop in O(log n), O(n) heapify) + heap sort |
 | Hash Tables | Hash Table (separate chaining, rehash at load factor 0.75) |
-| Graphs | Graph (adjacency list, BFS/DFS, directed + undirected edges) |
+| Graphs | Graph (adjacency list, BFS/DFS, directed + undirected edges, Dijkstra shortest path + path reconstruction) |
 
 ## Build & run
 
@@ -30,7 +30,7 @@ Requires any C++17 compiler (g++ / clang++).
 
 ## Coming next
 
-Dijkstra shortest path next. Full plan: [ROADMAP.md](ROADMAP.md).
+Assertion-based test main for every structure next. Full plan: [ROADMAP.md](ROADMAP.md).
 
 ## License
 
