@@ -28,9 +28,17 @@
 
 Requires any C++17 compiler (g++ / clang++).
 
+## Tests
+
+```bash
+./test.sh         # compiles test/test_main.cpp and runs it
+```
+
+`test/test_main.cpp` is an assertion-based test main for every structure — 200 checks covering list/stack/queue operations (including edge cases like empty-pop exceptions and queue growth), BST/AVL traversals and balance, heap ordering and heap sort, hash-table collisions and rehashing, and graph BFS/DFS plus Dijkstra distances and path reconstruction. Any failure prints the section and line and exits non-zero. `src/main.cpp` remains the printed demo; the tests are the verification.
+
 ## Coming next
 
-Assertion-based test main for every structure next. Full plan: [ROADMAP.md](ROADMAP.md).
+CMake build alongside build.sh next. Full plan: [ROADMAP.md](ROADMAP.md).
 
 ## License
 

@@ -12,5 +12,5 @@ Each item lands as one complete, tested change.
 - [x] Hash Table (separate chaining)
 - [x] Graph adjacency list + BFS/DFS
 - [x] Dijkstra shortest path
-- [ ] Assertion-based test main for every structure
+- [x] Assertion-based test main for every structure
 - [ ] CMake build alongside build.sh
