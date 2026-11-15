@@ -26,7 +26,16 @@
 ./build.sh        # g++ -std=c++17, then runs the demo
 ```
 
-Requires any C++17 compiler (g++ / clang++).
+Or with CMake (same compiler flags, out-of-source build):
+
+```bash
+cmake -S . -B build
+cmake --build build
+./build/demo          # printed demo of every structure
+ctest --test-dir build   # the 200-check test suite
+```
+
+Requires any C++17 compiler (g++ / clang++) and CMake 3.16+ for the CMake path.
 
 ## Tests
 
@@ -38,7 +47,7 @@ Requires any C++17 compiler (g++ / clang++).
 
 ## Coming next
 
-CMake build alongside build.sh next. Full plan: [ROADMAP.md](ROADMAP.md).
+The roadmap is complete — every planned structure and the CMake build are done. Full plan: [ROADMAP.md](ROADMAP.md).
 
 ## License
 

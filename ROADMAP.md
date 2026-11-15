@@ -13,4 +13,4 @@ Each item lands as one complete, tested change.
 - [x] Graph adjacency list + BFS/DFS
 - [x] Dijkstra shortest path
 - [x] Assertion-based test main for every structure
-- [ ] CMake build alongside build.sh
+- [x] CMake build alongside build.sh
