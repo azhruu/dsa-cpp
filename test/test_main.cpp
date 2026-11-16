@@ -321,6 +321,29 @@ void testGraph() {
     CHECK(!graph.removeEdge(3, 5));
     CHECK(vecEq(graph.bfs(1), std::vector<int>{1, 2, 3, 4, 6}));
 
+    CHECK(graph.removeVertex(5));          // takes its outgoing 5->6 with it
+    CHECK(!graph.hasVertex(5));
+    CHECK(!graph.hasEdge(5, 6));
+    CHECK(graph.vertexCount() == 5);
+    CHECK(graph.edgeCount() == 5);
+    CHECK(vecEq(graph.bfs(1), std::vector<int>{1, 2, 3, 4, 6}));
+    CHECK(graph.removeVertex(4));          // also drops incoming 2->4, 3->4
+    CHECK(!graph.hasEdge(2, 4));
+    CHECK(!graph.hasEdge(3, 4));
+    CHECK(graph.vertexCount() == 4);
+    CHECK(graph.edgeCount() == 2);
+    CHECK(!graph.removeVertex(99));        // missing vertex
+
+    Graph<std::string> weighted;
+    weighted.addWeightedEdge("A", "B", 4);
+    weighted.addWeightedEdge("B", "C", 1);
+    CHECK(weighted.removeVertex("B"));     // drops both edges and weights
+    CHECK(weighted.edgeWeight("A", "B") ==
+          std::numeric_limits<double>::infinity());
+    CHECK(weighted.edgeWeight("B", "C") ==
+          std::numeric_limits<double>::infinity());
+    CHECK(weighted.edgeCount() == 0);
+
     Graph<std::string> roads;
     CHECK(roads.addUndirectedEdge("A", "B"));
     CHECK(roads.addUndirectedEdge("B", "C"));

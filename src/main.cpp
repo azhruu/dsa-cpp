@@ -160,6 +160,10 @@ int main() {
     std::cout << "addEdge dup 1->2 -> " << graph.addEdge(1, 2) << "\n";
     graph.removeEdge(3, 5);
     std::cout << "removeEdge(3,5): " << graph.toString() << "\n";
+    graph.removeVertex(5);
+    std::cout << "removeVertex(5): " << graph.toString()
+              << ", vertices=" << graph.vertexCount() << ", edges=" << graph.edgeCount() << "\n";
+    std::cout << "removeVertex(99) missing -> " << graph.removeVertex(99) << "\n";
     std::cout << "BFS from 99 (missing): '" << join(graph.bfs(99)) << "' (empty)\n";
     Graph<std::string> roads;
     roads.addUndirectedEdge("A", "B");

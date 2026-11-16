@@ -113,6 +113,34 @@ public:
         return false;
     }
 
+    // Removes a vertex and every edge touching it, outgoing and
+    // incoming, including any stored weights for those edges.
+    // Returns false when the vertex is not in the graph.
+    bool removeVertex(const T& v) {
+        auto it = adjacency_.find(v);
+        if (it == adjacency_.end()) return false;
+        edgeCount_ -= it->second.size();  // v's outgoing edges
+        adjacency_.erase(it);
+        for (auto& pair : adjacency_) {
+            std::vector<T>& ns = pair.second;
+            for (std::size_t i = 0; i < ns.size(); ++i) {
+                if (ns[i] == v) {
+                    ns.erase(ns.begin() + static_cast<std::ptrdiff_t>(i));
+                    weights_.erase({pair.first, v});
+                    --edgeCount_;  // an incoming edge to v
+                    break;  // at most one edge per (from, to) pair
+                }
+            }
+        }
+        // Drop weights of v's own outgoing edges (a self-loop's weight
+        // is covered here too, since v is already gone from adjacency_).
+        for (auto wit = weights_.begin(); wit != weights_.end();) {
+            if (wit->first.first == v) wit = weights_.erase(wit);
+            else ++wit;
+        }
+        return true;
+    }
+
     std::vector<T> neighbours(const T& v) const {
         auto it = adjacency_.find(v);
         return it == adjacency_.end() ? std::vector<T>{} : it->second;
