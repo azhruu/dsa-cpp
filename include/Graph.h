@@ -146,6 +146,25 @@ public:
         return it == adjacency_.end() ? std::vector<T>{} : it->second;
     }
 
+    // Out-degree: number of edges leaving v (0 when v is missing).
+    std::size_t outDegree(const T& v) const {
+        auto it = adjacency_.find(v);
+        return it == adjacency_.end() ? 0 : it->second.size();
+    }
+
+    // In-degree: number of edges arriving at v (0 when v is missing).
+    // A self-loop counts once in each degree.
+    std::size_t inDegree(const T& v) const {
+        if (!hasVertex(v)) return 0;
+        std::size_t count = 0;
+        for (const auto& pair : adjacency_) {
+            for (const T& n : pair.second) {
+                if (n == v) ++count;
+            }
+        }
+        return count;
+    }
+
     std::vector<T> vertices() const {
         std::vector<T> out;
         for (const auto& pair : adjacency_) out.push_back(pair.first);

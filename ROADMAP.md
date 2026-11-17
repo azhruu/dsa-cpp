@@ -15,3 +15,4 @@ Each item lands as one complete, tested change.
 - [x] Assertion-based test main for every structure
 - [x] CMake build alongside build.sh
 - [x] Graph removeVertex (removes a vertex with its incident edges and weights)
+- [x] Graph inDegree/outDegree queries (polish)

@@ -309,6 +309,11 @@ void testGraph() {
     CHECK(graph.hasEdge(1, 3));
     CHECK(!graph.hasEdge(3, 1));              // directed
     CHECK(vecEq(graph.neighbours(1), std::vector<int>{2, 3}));
+    CHECK(graph.outDegree(1) == 2);
+    CHECK(graph.inDegree(4) == 2);           // edges 2->4 and 3->4
+    CHECK(graph.inDegree(1) == 0);           // nothing points at the root
+    CHECK(graph.outDegree(99) == 0);         // missing vertex
+    CHECK(graph.inDegree(99) == 0);
 
     CHECK(vecEq(graph.bfs(1), std::vector<int>{1, 2, 3, 4, 5, 6}));
     CHECK(vecEq(graph.dfs(1), std::vector<int>{1, 2, 4, 6, 3, 5}));
@@ -332,6 +337,7 @@ void testGraph() {
     CHECK(!graph.hasEdge(3, 4));
     CHECK(graph.vertexCount() == 4);
     CHECK(graph.edgeCount() == 2);
+    CHECK(graph.inDegree(6) == 0);           // both routes into 6 are gone
     CHECK(!graph.removeVertex(99));        // missing vertex
 
     Graph<std::string> weighted;

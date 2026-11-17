@@ -157,6 +157,10 @@ int main() {
     std::cout << "vertices=" << graph.vertexCount() << ", edges=" << graph.edgeCount()
               << ", hasEdge(1,3)=" << graph.hasEdge(1, 3)
               << ", hasEdge(3,1)=" << graph.hasEdge(3, 1) << "\n";
+    std::cout << "degrees:    outDegree(1)=" << graph.outDegree(1)
+              << ", inDegree(4)=" << graph.inDegree(4)
+              << ", inDegree(1)=" << graph.inDegree(1)
+              << ", outDegree(99)=" << graph.outDegree(99) << "\n";
     std::cout << "addEdge dup 1->2 -> " << graph.addEdge(1, 2) << "\n";
     graph.removeEdge(3, 5);
     std::cout << "removeEdge(3,5): " << graph.toString() << "\n";
