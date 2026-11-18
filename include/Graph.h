@@ -141,6 +141,14 @@ public:
         return true;
     }
 
+    // Removes every vertex, edge and stored weight, leaving an empty
+    // graph that can be built up again with the same instance.
+    void clear() {
+        adjacency_.clear();
+        weights_.clear();
+        edgeCount_ = 0;
+    }
+
     std::vector<T> neighbours(const T& v) const {
         auto it = adjacency_.find(v);
         return it == adjacency_.end() ? std::vector<T>{} : it->second;

@@ -359,6 +359,26 @@ void testGraph() {
     CHECK(roads.edgeWeight("A", "B") == 1.0);  // unweighted edge
     CHECK(roads.edgeWeight("A", "C") ==
           std::numeric_limits<double>::infinity());
+
+    // clear() empties the graph — vertices, edges and weights — and
+    // the same instance can be built up again afterwards.
+    graph.clear();
+    CHECK(graph.vertexCount() == 0);
+    CHECK(graph.edgeCount() == 0);
+    CHECK(!graph.hasVertex(1));
+    CHECK(graph.bfs(1).empty());
+    CHECK(graph.addEdge(7, 8));              // reuse after clear
+    CHECK(graph.vertexCount() == 2);
+    CHECK(graph.edgeCount() == 1);
+    CHECK(graph.hasEdge(7, 8));
+
+    Graph<std::string> weightedClear;
+    weightedClear.addWeightedEdge("A", "B", 4);
+    weightedClear.clear();
+    CHECK(weightedClear.vertexCount() == 0);
+    CHECK(weightedClear.edgeCount() == 0);
+    CHECK(weightedClear.edgeWeight("A", "B") ==
+          std::numeric_limits<double>::infinity());
 }
 
 void testDijkstra() {

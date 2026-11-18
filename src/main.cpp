@@ -168,6 +168,11 @@ int main() {
     std::cout << "removeVertex(5): " << graph.toString()
               << ", vertices=" << graph.vertexCount() << ", edges=" << graph.edgeCount() << "\n";
     std::cout << "removeVertex(99) missing -> " << graph.removeVertex(99) << "\n";
+    graph.clear();
+    std::cout << "clear():   vertices=" << graph.vertexCount() << ", edges=" << graph.edgeCount()
+              << ", hasVertex(1)=" << graph.hasVertex(1) << "\n";
+    graph.addEdge(7, 8);  // the same graph is reusable after clearing
+    std::cout << "reuse:     " << graph.toString() << "\n";
     std::cout << "BFS from 99 (missing): '" << join(graph.bfs(99)) << "' (empty)\n";
     Graph<std::string> roads;
     roads.addUndirectedEdge("A", "B");
