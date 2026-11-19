@@ -314,6 +314,8 @@ void testGraph() {
     CHECK(graph.inDegree(1) == 0);           // nothing points at the root
     CHECK(graph.outDegree(99) == 0);         // missing vertex
     CHECK(graph.inDegree(99) == 0);
+    CHECK(vecEq(graph.edges(), std::vector<std::pair<int, int>>{
+        {1, 2}, {1, 3}, {2, 4}, {3, 4}, {3, 5}, {4, 6}, {5, 6}}));
 
     CHECK(vecEq(graph.bfs(1), std::vector<int>{1, 2, 3, 4, 5, 6}));
     CHECK(vecEq(graph.dfs(1), std::vector<int>{1, 2, 4, 6, 3, 5}));
@@ -324,6 +326,8 @@ void testGraph() {
     CHECK(!graph.hasEdge(3, 5));
     CHECK(graph.edgeCount() == 6);
     CHECK(!graph.removeEdge(3, 5));
+    CHECK(vecEq(graph.edges(), std::vector<std::pair<int, int>>{
+        {1, 2}, {1, 3}, {2, 4}, {3, 4}, {4, 6}, {5, 6}}));  // 3->5 gone
     CHECK(vecEq(graph.bfs(1), std::vector<int>{1, 2, 3, 4, 6}));
 
     CHECK(graph.removeVertex(5));          // takes its outgoing 5->6 with it
@@ -359,18 +363,22 @@ void testGraph() {
     CHECK(roads.edgeWeight("A", "B") == 1.0);  // unweighted edge
     CHECK(roads.edgeWeight("A", "C") ==
           std::numeric_limits<double>::infinity());
+    CHECK(vecEq(roads.edges(), std::vector<std::pair<std::string, std::string>>{
+        {"A", "B"}, {"B", "A"}, {"B", "C"}, {"C", "B"}}));  // both directions
 
     // clear() empties the graph — vertices, edges and weights — and
     // the same instance can be built up again afterwards.
     graph.clear();
     CHECK(graph.vertexCount() == 0);
     CHECK(graph.edgeCount() == 0);
+    CHECK(graph.edges().empty());
     CHECK(!graph.hasVertex(1));
     CHECK(graph.bfs(1).empty());
     CHECK(graph.addEdge(7, 8));              // reuse after clear
     CHECK(graph.vertexCount() == 2);
     CHECK(graph.edgeCount() == 1);
     CHECK(graph.hasEdge(7, 8));
+    CHECK(vecEq(graph.edges(), std::vector<std::pair<int, int>>{{7, 8}}));
 
     Graph<std::string> weightedClear;
     weightedClear.addWeightedEdge("A", "B", 4);

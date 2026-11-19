@@ -179,6 +179,18 @@ public:
         return out;
     }
 
+    // Every directed edge as (from, to) pairs, ordered by source
+    // vertex (vertices are stored sorted) then by insertion order
+    // within a vertex. An undirected edge appears as both directions,
+    // and a self-loop appears once, as (v, v).
+    std::vector<std::pair<T, T>> edges() const {
+        std::vector<std::pair<T, T>> out;
+        for (const auto& pair : adjacency_) {
+            for (const T& n : pair.second) out.emplace_back(pair.first, n);
+        }
+        return out;
+    }
+
     std::vector<T> bfs(const T& start) const {
         std::vector<T> order;
         if (!hasVertex(start)) return order;

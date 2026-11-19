@@ -161,6 +161,9 @@ int main() {
               << ", inDegree(4)=" << graph.inDegree(4)
               << ", inDegree(1)=" << graph.inDegree(1)
               << ", outDegree(99)=" << graph.outDegree(99) << "\n";
+    std::cout << "edges:      ";
+    for (const auto& e : graph.edges()) std::cout << e.first << "->" << e.second << " ";
+    std::cout << "\n";
     std::cout << "addEdge dup 1->2 -> " << graph.addEdge(1, 2) << "\n";
     graph.removeEdge(3, 5);
     std::cout << "removeEdge(3,5): " << graph.toString() << "\n";
@@ -170,7 +173,8 @@ int main() {
     std::cout << "removeVertex(99) missing -> " << graph.removeVertex(99) << "\n";
     graph.clear();
     std::cout << "clear():   vertices=" << graph.vertexCount() << ", edges=" << graph.edgeCount()
-              << ", hasVertex(1)=" << graph.hasVertex(1) << "\n";
+              << ", hasVertex(1)=" << graph.hasVertex(1)
+              << ", edges listed=" << graph.edges().size() << "\n";
     graph.addEdge(7, 8);  // the same graph is reusable after clearing
     std::cout << "reuse:     " << graph.toString() << "\n";
     std::cout << "BFS from 99 (missing): '" << join(graph.bfs(99)) << "' (empty)\n";

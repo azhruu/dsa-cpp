@@ -17,3 +17,4 @@ Each item lands as one complete, tested change.
 - [x] Graph removeVertex (removes a vertex with its incident edges and weights)
 - [x] Graph inDegree/outDegree queries (polish)
 - [x] Graph clear() to empty and reuse a graph (polish)
+- [x] Graph edges() lists every directed edge as (from, to) pairs (polish)
