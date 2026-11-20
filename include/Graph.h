@@ -230,6 +230,29 @@ public:
         return order;
     }
 
+    // Reachability: true when a directed path exists from start to
+    // goal (a vertex always reaches itself). False when either vertex
+    // is missing. A BFS from start that stops as soon as the goal is
+    // reached, so it answers the question without building the full
+    // traversal.
+    bool hasPath(const T& start, const T& goal) const {
+        if (!hasVertex(start) || !hasVertex(goal)) return false;
+        if (start == goal) return true;
+        std::set<T> visited;
+        std::queue<T> q;
+        visited.insert(start);
+        q.push(start);
+        while (!q.empty()) {
+            T cur = q.front();
+            q.pop();
+            for (const T& n : adjacency_.at(cur)) {
+                if (n == goal) return true;
+                if (!visited.count(n)) { visited.insert(n); q.push(n); }
+            }
+        }
+        return false;
+    }
+
     // Dijkstra's shortest-path distances from start to every vertex:
     // start maps to 0, unreachable vertices map to infinity, and a
     // missing start returns an empty map. Runs in O((V + E) log V)
@@ -242,8 +265,7 @@ public:
     // (start ... goal), or an empty vector when goal is unreachable
     // or either vertex is missing. A start equal to the goal returns
     // just {start}.
-    std::vector<T> shortestPath(const T& start, const T& goal) const {
-        std::vector<T> path;
+    std::vector<T> shortestPath(const T& start, const T& goal) const {        std::vector<T> path;
         if (!hasVertex(start) || !hasVertex(goal)) return path;
         auto [dist, prev] = dijkstraImpl(start);
         if (dist[goal] == std::numeric_limits<double>::infinity()) return path;

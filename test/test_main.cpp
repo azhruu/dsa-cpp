@@ -322,6 +322,13 @@ void testGraph() {
     CHECK(graph.bfs(99).empty());              // missing start
     CHECK(graph.dfs(99).empty());
 
+    CHECK(graph.hasPath(1, 6));            // 1->2->4->6 and 1->3->5->6
+    CHECK(graph.hasPath(1, 5));
+    CHECK(!graph.hasPath(6, 1));           // directed: no way back
+    CHECK(graph.hasPath(3, 3));            // a vertex reaches itself
+    CHECK(!graph.hasPath(1, 99));          // missing goal
+    CHECK(!graph.hasPath(99, 1));          // missing start
+
     CHECK(graph.removeEdge(3, 5));
     CHECK(!graph.hasEdge(3, 5));
     CHECK(graph.edgeCount() == 6);

@@ -164,6 +164,10 @@ int main() {
     std::cout << "edges:      ";
     for (const auto& e : graph.edges()) std::cout << e.first << "->" << e.second << " ";
     std::cout << "\n";
+    std::cout << "hasPath:    1->6=" << graph.hasPath(1, 6)
+              << ", 6->1=" << graph.hasPath(6, 1)
+              << ", 1->1=" << graph.hasPath(1, 1)
+              << ", 1->99=" << graph.hasPath(1, 99) << "\n";
     std::cout << "addEdge dup 1->2 -> " << graph.addEdge(1, 2) << "\n";
     graph.removeEdge(3, 5);
     std::cout << "removeEdge(3,5): " << graph.toString() << "\n";

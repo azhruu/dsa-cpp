@@ -18,7 +18,7 @@
 | Trees | AVL Tree (self-balancing via rotations, stays O(log n) on sorted input) |
 | Heaps | Max/Min Heap (array-backed, push/pop in O(log n), O(n) heapify) + heap sort |
 | Hash Tables | Hash Table (separate chaining, rehash at load factor 0.75) |
-| Graphs | Graph (adjacency list, BFS/DFS, directed + undirected edges, Dijkstra shortest path + path reconstruction, vertex/edge removal, in/out-degree queries, edges() listing every directed edge, clear() to empty and reuse) |
+| Graphs | Graph (adjacency list, BFS/DFS, directed + undirected edges, Dijkstra shortest path + path reconstruction, hasPath() reachability query, vertex/edge removal, in/out-degree queries, edges() listing every directed edge, clear() to empty and reuse) |
 
 ## Build & run
 
