@@ -18,7 +18,9 @@
 // breadth-first visit order, DFS in depth-first (preorder) visit order;
 // both return an empty vector when the start vertex is not in the graph.
 // Vertices are created on demand by addEdge, so addVertex is only
-// needed for isolated vertices.
+// needed for isolated vertices. topologicalSort() (Kahn's algorithm)
+// returns a valid dependency order, or an empty vector when the graph
+// has a cycle.
 //
 // Weighted edges (addWeightedEdge) carry a non-negative double weight
 // for Dijkstra's algorithm. Edges added with plain addEdge count as
@@ -251,6 +253,36 @@ public:
             }
         }
         return false;
+    }
+
+    // Topological order (Kahn's algorithm): every vertex appears
+    // after all of its predecessors, so the order is a valid build /
+    // dependency order for the graph. Returns an empty vector when
+    // the graph has a cycle (no valid order exists) or is empty.
+    // Deterministic: zero in-degree vertices are taken in sorted
+    // vertex order, and neighbours are processed in insertion order.
+    std::vector<T> topologicalSort() const {
+        std::map<T, std::size_t> indegree;
+        for (const T& v : vertices()) indegree[v] = 0;
+        for (const auto& pair : adjacency_) {
+            for (const T& n : pair.second) ++indegree[n];
+        }
+        std::queue<T> q;
+        for (const auto& pair : indegree) {
+            if (pair.second == 0) q.push(pair.first);
+        }
+        std::vector<T> order;
+        while (!q.empty()) {
+            T cur = q.front();
+            q.pop();
+            order.push_back(cur);
+            for (const T& n : adjacency_.at(cur)) {
+                if (--indegree[n] == 0) q.push(n);
+            }
+        }
+        // A leftover vertex means a cycle kept its in-degree above 0.
+        if (order.size() != adjacency_.size()) return {};
+        return order;
     }
 
     // Dijkstra's shortest-path distances from start to every vertex:

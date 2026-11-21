@@ -19,3 +19,4 @@ Each item lands as one complete, tested change.
 - [x] Graph clear() to empty and reuse a graph (polish)
 - [x] Graph edges() lists every directed edge as (from, to) pairs (polish)
 - [x] Graph hasPath() reachability query (BFS, stops at the goal) (polish)
+- [x] Graph topologicalSort() (Kahn's algorithm, empty vector on a cycle) (polish)

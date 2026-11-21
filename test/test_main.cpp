@@ -329,6 +329,14 @@ void testGraph() {
     CHECK(!graph.hasPath(1, 99));          // missing goal
     CHECK(!graph.hasPath(99, 1));          // missing start
 
+    // Topological order: every vertex comes after its predecessors.
+    CHECK(vecEq(graph.topologicalSort(), std::vector<int>{1, 2, 3, 4, 5, 6}));
+    Graph<int> cyclic;
+    cyclic.addEdge(1, 2); cyclic.addEdge(2, 3); cyclic.addEdge(3, 1);
+    CHECK(cyclic.topologicalSort().empty());  // a cycle has no valid order
+    Graph<int> emptyGraph;
+    CHECK(emptyGraph.topologicalSort().empty());
+
     CHECK(graph.removeEdge(3, 5));
     CHECK(!graph.hasEdge(3, 5));
     CHECK(graph.edgeCount() == 6);
