@@ -337,6 +337,15 @@ void testGraph() {
     Graph<int> emptyGraph;
     CHECK(emptyGraph.topologicalSort().empty());
 
+    // Cycle check: the DAG is acyclic, the 1->2->3->1 graph is not,
+    // and neither is an empty graph. A self-loop is a cycle too.
+    CHECK(!graph.isCyclic());
+    CHECK(cyclic.isCyclic());
+    CHECK(!emptyGraph.isCyclic());
+    Graph<int> selfLoop;
+    selfLoop.addEdge(1, 1);
+    CHECK(selfLoop.isCyclic());
+
     CHECK(graph.removeEdge(3, 5));
     CHECK(!graph.hasEdge(3, 5));
     CHECK(graph.edgeCount() == 6);

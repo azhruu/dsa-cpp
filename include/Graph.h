@@ -20,7 +20,8 @@
 // Vertices are created on demand by addEdge, so addVertex is only
 // needed for isolated vertices. topologicalSort() (Kahn's algorithm)
 // returns a valid dependency order, or an empty vector when the graph
-// has a cycle.
+// has a cycle; isCyclic() answers the same question directly (DFS,
+// three-colour marking), including self-loops.
 //
 // Weighted edges (addWeightedEdge) carry a non-negative double weight
 // for Dijkstra's algorithm. Edges added with plain addEdge count as
@@ -285,6 +286,19 @@ public:
         return order;
     }
 
+    // Cycle check (DFS, three-colour marking): true when any directed
+    // cycle exists, including a self-loop; false for an empty graph
+    // or a DAG. Complements topologicalSort(), which reports a cycle
+    // only as an empty order.
+    bool isCyclic() const {
+        std::set<T> visiting;  // on the current DFS path (grey)
+        std::set<T> done;      // fully explored (black)
+        for (const T& v : vertices()) {
+            if (!done.count(v) && hasCycleFrom(v, visiting, done)) return true;
+        }
+        return false;
+    }
+
     // Dijkstra's shortest-path distances from start to every vertex:
     // start maps to 0, unreachable vertices map to infinity, and a
     // missing start returns an empty map. Runs in O((V + E) log V)
@@ -313,6 +327,19 @@ public:
     std::size_t edgeCount() const { return edgeCount_; }
 
 private:
+    // Recursive step of isCyclic(): a back edge to a vertex still on
+    // the current DFS path means a cycle; a self-loop is such an edge.
+    bool hasCycleFrom(const T& v, std::set<T>& visiting, std::set<T>& done) const {
+        visiting.insert(v);
+        for (const T& n : adjacency_.at(v)) {
+            if (visiting.count(n)) return true;
+            if (!done.count(n) && hasCycleFrom(n, visiting, done)) return true;
+        }
+        visiting.erase(v);
+        done.insert(v);
+        return false;
+    }
+
     // Shared core of dijkstra() and shortestPath(): distances plus,
     // for every reached vertex except start, the previous vertex on
     // its cheapest route. Empty maps when start is not in the graph.

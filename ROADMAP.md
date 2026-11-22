@@ -20,3 +20,4 @@ Each item lands as one complete, tested change.
 - [x] Graph edges() lists every directed edge as (from, to) pairs (polish)
 - [x] Graph hasPath() reachability query (BFS, stops at the goal) (polish)
 - [x] Graph topologicalSort() (Kahn's algorithm, empty vector on a cycle) (polish)
+- [x] Graph isCyclic() cycle check (DFS, three-colour marking, incl. self-loops) (polish)

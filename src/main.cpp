@@ -173,6 +173,8 @@ int main() {
     cyclic.addEdge(1, 2); cyclic.addEdge(2, 3); cyclic.addEdge(3, 1);
     std::cout << "topo order of a cyclic graph: '"
               << join(cyclic.topologicalSort()) << "' (empty: no valid order)\n";
+    std::cout << "isCyclic:  graph=" << graph.isCyclic()
+              << ", cyclic=" << cyclic.isCyclic() << "\n";
     std::cout << "addEdge dup 1->2 -> " << graph.addEdge(1, 2) << "\n";
     graph.removeEdge(3, 5);
     std::cout << "removeEdge(3,5): " << graph.toString() << "\n";
