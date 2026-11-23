@@ -18,7 +18,7 @@
 | Trees | AVL Tree (self-balancing via rotations, stays O(log n) on sorted input) |
 | Heaps | Max/Min Heap (array-backed, push/pop in O(log n), O(n) heapify) + heap sort |
 | Hash Tables | Hash Table (separate chaining, rehash at load factor 0.75) |
-| Graphs | Graph (adjacency list, BFS/DFS, directed + undirected edges, Dijkstra shortest path + path reconstruction, hasPath() reachability query, topologicalSort() dependency order, isCyclic() cycle check, vertex/edge removal, in/out-degree queries, edges() listing every directed edge, clear() to empty and reuse) |
+| Graphs | Graph (adjacency list, BFS/DFS, directed + undirected edges, Dijkstra shortest path + path reconstruction, hasPath() reachability query, topologicalSort() dependency order, isCyclic() cycle check, reverse() transpose with weights preserved, vertex/edge removal, in/out-degree queries, edges() listing every directed edge, clear() to empty and reuse) |
 
 ## Build & run
 
@@ -32,7 +32,7 @@ Or with CMake (same compiler flags, out-of-source build):
 cmake -S . -B build
 cmake --build build
 ./build/demo          # printed demo of every structure
-ctest --test-dir build   # the 238-check test suite
+ctest --test-dir build   # the 264-check test suite
 ```
 
 Requires any C++17 compiler (g++ / clang++) and CMake 3.16+ for the CMake path.
@@ -43,7 +43,7 @@ Requires any C++17 compiler (g++ / clang++) and CMake 3.16+ for the CMake path.
 ./test.sh         # compiles test/test_main.cpp and runs it
 ```
 
-`test/test_main.cpp` is an assertion-based test main for every structure — 238 checks covering list/stack/queue operations (including edge cases like empty-pop exceptions and queue growth), BST/AVL traversals and balance, heap ordering and heap sort, hash-table collisions and rehashing, and graph BFS/DFS, in/out-degree queries, edge listing and vertex removal plus Dijkstra distances and path reconstruction. Any failure prints the section and line and exits non-zero. `src/main.cpp` remains the printed demo; the tests are the verification.
+`test/test_main.cpp` is an assertion-based test main for every structure — 264 checks covering list/stack/queue operations (including edge cases like empty-pop exceptions and queue growth), BST/AVL traversals and balance, heap ordering and heap sort, hash-table collisions and rehashing, and graph BFS/DFS, in/out-degree queries, edge listing, reverse() transpose (including weight preservation) and vertex removal plus Dijkstra distances and path reconstruction. Any failure prints the section and line and exits non-zero. `src/main.cpp` remains the printed demo; the tests are the verification.
 
 ## Coming next
 

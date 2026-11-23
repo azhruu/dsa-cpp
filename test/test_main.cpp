@@ -346,6 +346,30 @@ void testGraph() {
     selfLoop.addEdge(1, 1);
     CHECK(selfLoop.isCyclic());
 
+    // reverse() (transpose): every edge flips direction, vertices and
+    // weights are kept, and the original graph is untouched.
+    Graph<int> reversed = graph.reverse();
+    CHECK(vecEq(reversed.edges(), std::vector<std::pair<int, int>>{
+        {2, 1}, {3, 1}, {4, 2}, {4, 3}, {5, 3}, {6, 4}, {6, 5}}));
+    CHECK(reversed.vertexCount() == 6);
+    CHECK(reversed.edgeCount() == 7);
+    CHECK(reversed.hasEdge(2, 1));
+    CHECK(!reversed.hasEdge(1, 2));           // direction really flipped
+    CHECK(vecEq(graph.edges(), std::vector<std::pair<int, int>>{
+        {1, 2}, {1, 3}, {2, 4}, {3, 4}, {3, 5}, {4, 6}, {5, 6}}));
+    CHECK(emptyGraph.reverse().vertexCount() == 0);  // empty stays empty
+    Graph<std::string> weightedRevSrc;
+    weightedRevSrc.addWeightedEdge("A", "B", 4);
+    weightedRevSrc.addWeightedEdge("B", "C", 1);
+    weightedRevSrc.addEdge("C", "A");          // unweighted edge
+    Graph<std::string> weightedRev = weightedRevSrc.reverse();
+    CHECK(weightedRev.hasEdge("B", "A"));
+    CHECK(weightedRev.edgeWeight("B", "A") == 4);    // weight kept
+    CHECK(weightedRev.edgeWeight("C", "B") == 1);
+    CHECK(weightedRev.edgeWeight("A", "C") == 1.0);  // unweighted stays 1
+    CHECK(!weightedRev.hasEdge("A", "B"));
+    CHECK(weightedRev.edgeCount() == 3);
+
     CHECK(graph.removeEdge(3, 5));
     CHECK(!graph.hasEdge(3, 5));
     CHECK(graph.edgeCount() == 6);

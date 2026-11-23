@@ -21,7 +21,8 @@
 // needed for isolated vertices. topologicalSort() (Kahn's algorithm)
 // returns a valid dependency order, or an empty vector when the graph
 // has a cycle; isCyclic() answers the same question directly (DFS,
-// three-colour marking), including self-loops.
+// three-colour marking), including self-loops. reverse() returns the
+// transpose: every edge flipped, weights preserved, original untouched.
 //
 // Weighted edges (addWeightedEdge) carry a non-negative double weight
 // for Dijkstra's algorithm. Edges added with plain addEdge count as
@@ -174,6 +175,24 @@ public:
             }
         }
         return count;
+    }
+
+    // Transpose: a new graph with every vertex kept and every edge
+    // flipped (to -> from). Weighted edges keep their weight in the
+    // reversed direction; unweighted edges stay unweighted. The
+    // original graph is untouched, so reverse() twice returns a graph
+    // equal to the original (same edges, insertion order aside).
+    Graph<T> reverse() const {
+        Graph<T> out;
+        for (const T& v : vertices()) out.addVertex(v);
+        for (const auto& pair : adjacency_) {
+            for (const T& n : pair.second) {
+                auto it = weights_.find({pair.first, n});
+                if (it != weights_.end()) out.addWeightedEdge(n, pair.first, it->second);
+                else out.addEdge(n, pair.first);
+            }
+        }
+        return out;
     }
 
     std::vector<T> vertices() const {

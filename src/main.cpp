@@ -175,6 +175,11 @@ int main() {
               << join(cyclic.topologicalSort()) << "' (empty: no valid order)\n";
     std::cout << "isCyclic:  graph=" << graph.isCyclic()
               << ", cyclic=" << cyclic.isCyclic() << "\n";
+    Graph<int> reversed = graph.reverse();
+    std::cout << "reverse:    " << reversed.toString()
+              << ", hasEdge(2,1)=" << reversed.hasEdge(2, 1)
+              << ", hasEdge(1,2)=" << reversed.hasEdge(1, 2)
+              << ", original still hasEdge(1,2)=" << graph.hasEdge(1, 2) << "\n";
     std::cout << "addEdge dup 1->2 -> " << graph.addEdge(1, 2) << "\n";
     graph.removeEdge(3, 5);
     std::cout << "removeEdge(3,5): " << graph.toString() << "\n";
