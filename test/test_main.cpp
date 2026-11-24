@@ -346,6 +346,22 @@ void testGraph() {
     selfLoop.addEdge(1, 1);
     CHECK(selfLoop.isCyclic());
 
+    // connectedComponents(): weakly connected groups — edge direction
+    // is ignored, so a vertex that only points at a group still
+    // belongs to it. Components are ordered by their smallest vertex;
+    // an isolated vertex is a component of one, an empty graph has none.
+    Graph<int> islands;
+    islands.addEdge(1, 2); islands.addEdge(2, 3);
+    islands.addEdge(4, 5); islands.addVertex(6);  // isolated
+    islands.addEdge(8, 7);  // one-way edge: 8 still joins 7's group
+    CHECK(vecEq(islands.connectedComponents(), std::vector<std::vector<int>>{
+        {1, 2, 3}, {4, 5}, {6}, {7, 8}}));
+    CHECK(graph.connectedComponents().size() == 1);  // main graph is one piece
+    CHECK(emptyGraph.connectedComponents().empty());
+    Graph<int> oneWay;
+    oneWay.addEdge(1, 2); oneWay.addEdge(3, 1);  // 3 can reach 1, not vice versa
+    CHECK(oneWay.connectedComponents().size() == 1);  // direction ignored
+
     // reverse() (transpose): every edge flips direction, vertices and
     // weights are kept, and the original graph is untouched.
     Graph<int> reversed = graph.reverse();

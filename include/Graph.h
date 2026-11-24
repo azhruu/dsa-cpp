@@ -23,6 +23,8 @@
 // has a cycle; isCyclic() answers the same question directly (DFS,
 // three-colour marking), including self-loops. reverse() returns the
 // transpose: every edge flipped, weights preserved, original untouched.
+// connectedComponents() groups vertices joined by an edge in either
+// direction (weakly connected components), ignoring edge direction.
 //
 // Weighted edges (addWeightedEdge) carry a non-negative double weight
 // for Dijkstra's algorithm. Edges added with plain addEdge count as
@@ -316,6 +318,48 @@ public:
             if (!done.count(v) && hasCycleFrom(v, visiting, done)) return true;
         }
         return false;
+    }
+
+    // Weakly connected components: groups of vertices joined by an
+    // edge in either direction, so edge direction is ignored — a
+    // vertex that only points at a group still belongs to it. Each
+    // component lists its vertices in BFS order, and components come
+    // out ordered by their smallest vertex (the smallest unvisited
+    // vertex starts each one). An empty graph has no components; an
+    // isolated vertex is a component of one.
+    std::vector<std::vector<T>> connectedComponents() const {
+        // Keep the vertex list in a named variable: calling
+        // vertices().begin() and vertices().end() would build two
+        // separate temporaries, and the range would span two buffers.
+        std::vector<T> all = vertices();
+        std::set<T> unvisited(all.begin(), all.end());
+        std::vector<std::vector<T>> components;
+        while (!unvisited.empty()) {
+            T start = *unvisited.begin();
+            std::vector<T> component;
+            std::queue<T> q;
+            unvisited.erase(start);
+            q.push(start);
+            while (!q.empty()) {
+                T cur = q.front();
+                q.pop();
+                component.push_back(cur);
+                // Outgoing neighbours, plus every vertex pointing at
+                // cur: the undirected view of the graph.
+                for (const T& n : adjacency_.at(cur)) {
+                    if (unvisited.erase(n)) q.push(n);
+                }
+                for (const auto& pair : adjacency_) {
+                    for (const T& n : pair.second) {
+                        if (n == cur && unvisited.erase(pair.first)) {
+                            q.push(pair.first);
+                        }
+                    }
+                }
+            }
+            components.push_back(component);
+        }
+        return components;
     }
 
     // Dijkstra's shortest-path distances from start to every vertex:

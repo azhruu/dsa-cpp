@@ -175,6 +175,17 @@ int main() {
               << join(cyclic.topologicalSort()) << "' (empty: no valid order)\n";
     std::cout << "isCyclic:  graph=" << graph.isCyclic()
               << ", cyclic=" << cyclic.isCyclic() << "\n";
+    Graph<int> islands;
+    islands.addEdge(1, 2); islands.addEdge(2, 3);
+    islands.addEdge(4, 5); islands.addVertex(6);  // isolated
+    islands.addEdge(8, 7);  // one-way edge: 8 still joins 7's group
+    std::cout << "components: ";
+    for (const auto& c : islands.connectedComponents()) {
+        std::cout << "[" << join(c) << "] ";
+    }
+    Graph<int> emptyGraph;
+    std::cout << "(empty graph: " << emptyGraph.connectedComponents().size()
+              << " components)\n";
     Graph<int> reversed = graph.reverse();
     std::cout << "reverse:    " << reversed.toString()
               << ", hasEdge(2,1)=" << reversed.hasEdge(2, 1)

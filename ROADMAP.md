@@ -22,3 +22,4 @@ Each item lands as one complete, tested change.
 - [x] Graph topologicalSort() (Kahn's algorithm, empty vector on a cycle) (polish)
 - [x] Graph isCyclic() cycle check (DFS, three-colour marking, incl. self-loops) (polish)
 - [x] Graph reverse() transpose, every edge flipped with weights preserved and the original untouched (polish)
+- [x] Graph connectedComponents() weakly connected groups, ignoring edge direction (polish)
