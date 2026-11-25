@@ -237,6 +237,9 @@ int main() {
     for (const std::string& v : map.vertices()) std::cout << v << "=" << fmtDist(dist[v]) << " ";
     std::cout << "\n";
     std::cout << "shortest path A -> Z: " << join(map.shortestPath("A", "Z")) << " (cost 14)\n";
+    std::cout << "shortest path length A -> Z: " << fmtDist(map.shortestPathLength("A", "Z"))
+              << ", A -> A: " << fmtDist(map.shortestPathLength("A", "A"))
+              << ", A -> Q: " << fmtDist(map.shortestPathLength("A", "Q")) << " (unreachable)\n";
     std::cout << "shortest path A -> A: " << join(map.shortestPath("A", "A")) << "\n";
     std::cout << "shortest path A -> Q (unreachable): '" << join(map.shortestPath("A", "Q")) << "' (empty)\n";
     std::cout << "dijkstra from missing vertex: " << map.dijkstra("nope").size() << " entries (empty)\n";
@@ -248,6 +251,8 @@ int main() {
     map.removeEdge("D", "E");
     std::cout << "after removeEdge(D, E): shortest path A -> Z: "
               << join(map.shortestPath("A", "Z")) << " (cost 15)\n";
+    std::cout << "after removeEdge(D, E): shortest path length A -> Z: "
+              << fmtDist(map.shortestPathLength("A", "Z")) << "\n";
 
     std::cout << "\nAll structures working OK\n";
     return 0;

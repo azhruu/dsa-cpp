@@ -32,7 +32,9 @@
 // returns the stored weight, 1 for an unweighted edge, and infinity
 // when there is no edge at all. Dijkstra returns infinity for vertices
 // unreachable from the start, and shortestPath() returns an empty
-// vector when no path exists.
+// vector when no path exists; shortestPathLength() gives just the
+// cheapest distance (infinity when unreachable) without building
+// the route.
 template <typename T>
 class Graph {
     std::map<T, std::vector<T>> adjacency_;
@@ -374,7 +376,8 @@ public:
     // (start ... goal), or an empty vector when goal is unreachable
     // or either vertex is missing. A start equal to the goal returns
     // just {start}.
-    std::vector<T> shortestPath(const T& start, const T& goal) const {        std::vector<T> path;
+    std::vector<T> shortestPath(const T& start, const T& goal) const {
+        std::vector<T> path;
         if (!hasVertex(start) || !hasVertex(goal)) return path;
         auto [dist, prev] = dijkstraImpl(start);
         if (dist[goal] == std::numeric_limits<double>::infinity()) return path;
@@ -384,6 +387,17 @@ public:
         }
         std::reverse(path.begin(), path.end());
         return path;
+    }
+
+    // The cost of the cheapest route from start to goal, without
+    // building the route itself: 0 when start == goal, infinity when
+    // the goal is unreachable or either vertex is missing. Cheaper
+    // than shortestPath() when only the distance is needed.
+    double shortestPathLength(const T& start, const T& goal) const {
+        if (!hasVertex(start) || !hasVertex(goal)) {
+            return std::numeric_limits<double>::infinity();
+        }
+        return dijkstraImpl(start).first[goal];
     }
 
     std::size_t vertexCount() const { return adjacency_.size(); }

@@ -485,10 +485,19 @@ void testDijkstra() {
     CHECK(vecEq(map.shortestPath("A", "A"), std::vector<std::string>{"A"}));
     CHECK(map.shortestPath("A", "Q").empty()); // unreachable
     CHECK(map.dijkstra("nope").empty());       // missing start
+    CHECK(map.shortestPathLength("A", "Z") == 14);
+    CHECK(map.shortestPathLength("A", "A") == 0);
+    CHECK(map.shortestPathLength("A", "Q") ==
+          std::numeric_limits<double>::infinity()); // unreachable
+    CHECK(map.shortestPathLength("A", "nope") ==
+          std::numeric_limits<double>::infinity()); // missing goal
+    CHECK(map.shortestPathLength("nope", "Z") ==
+          std::numeric_limits<double>::infinity()); // missing start
 
     map.removeEdge("D", "E");
     CHECK(map.dijkstra("A").at("Z") == 15);    // next best route costs 15
     CHECK(map.shortestPath("A", "Z").size() == 4);
+    CHECK(map.shortestPathLength("A", "Z") == 15);
 }
 
 } // namespace
