@@ -210,6 +210,12 @@ int main() {
     roads.addUndirectedEdge("B", "C");
     std::cout << "undirected: " << roads.toString()
               << ", DFS from A: " << join(roads.dfs("A")) << "\n";
+    std::cout << "removeUndirectedEdge(B, C) -> " << roads.removeUndirectedEdge("B", "C")
+              << ", edges left: " << roads.edgeCount()
+              << ", hasEdge(B,C)=" << roads.hasEdge("B", "C")
+              << ", hasEdge(C,B)=" << roads.hasEdge("C", "B") << "\n";
+    std::cout << "removeUndirectedEdge(B, C) again -> " << roads.removeUndirectedEdge("B", "C")
+              << ", removeUndirectedEdge(A, Z) missing -> " << roads.removeUndirectedEdge("A", "Z") << "\n";
     std::cout << "unweighted edge weight: " << roads.edgeWeight("A", "B")
               << ", missing edge weight: " << roads.edgeWeight("A", "C") << "\n";
 

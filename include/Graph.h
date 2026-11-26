@@ -121,6 +121,18 @@ public:
         return false;
     }
 
+    // Removes both directions of an undirected edge; true when at
+    // least one of them existed. Removing only one direction would
+    // leave a stray one-way edge, so callers of addUndirectedEdge
+    // should remove with this instead of removeEdge. Works for
+    // weighted undirected edges too: removeEdge drops the stored
+    // weight of each direction it removes.
+    bool removeUndirectedEdge(const T& a, const T& b) {
+        bool first = removeEdge(a, b);
+        bool second = removeEdge(b, a);
+        return first || second;
+    }
+
     // Removes a vertex and every edge touching it, outgoing and
     // incoming, including any stored weights for those edges.
     // Returns false when the vertex is not in the graph.

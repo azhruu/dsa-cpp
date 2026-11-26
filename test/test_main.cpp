@@ -430,6 +430,15 @@ void testGraph() {
     CHECK(vecEq(roads.edges(), std::vector<std::pair<std::string, std::string>>{
         {"A", "B"}, {"B", "A"}, {"B", "C"}, {"C", "B"}}));  // both directions
 
+    // removeUndirectedEdge drops both directions at once; removing
+    // only one would leave a stray one-way edge behind.
+    CHECK(roads.removeUndirectedEdge("B", "C"));
+    CHECK(!roads.hasEdge("B", "C"));
+    CHECK(!roads.hasEdge("C", "B"));
+    CHECK(roads.edgeCount() == 2);
+    CHECK(!roads.removeUndirectedEdge("B", "C"));  // already gone
+    CHECK(!roads.removeUndirectedEdge("A", "Z"));   // never existed
+
     // clear() empties the graph — vertices, edges and weights — and
     // the same instance can be built up again afterwards.
     graph.clear();
