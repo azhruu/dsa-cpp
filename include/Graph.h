@@ -174,6 +174,21 @@ public:
         return it == adjacency_.end() ? std::vector<T>{} : it->second;
     }
 
+    // Predecessors: every vertex with an edge into v — the complement
+    // of neighbours(), which lists v's successors. Listed in sorted
+    // vertex order (vertices are stored in a map), and empty when v is
+    // missing. A self-loop makes v its own predecessor.
+    std::vector<T> inNeighbours(const T& v) const {
+        std::vector<T> out;
+        if (!hasVertex(v)) return out;
+        for (const auto& pair : adjacency_) {
+            for (const T& n : pair.second) {
+                if (n == v) { out.push_back(pair.first); break; }
+            }
+        }
+        return out;
+    }
+
     // Out-degree: number of edges leaving v (0 when v is missing).
     std::size_t outDegree(const T& v) const {
         auto it = adjacency_.find(v);

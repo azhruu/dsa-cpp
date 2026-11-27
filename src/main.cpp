@@ -161,6 +161,9 @@ int main() {
               << ", inDegree(4)=" << graph.inDegree(4)
               << ", inDegree(1)=" << graph.inDegree(1)
               << ", outDegree(99)=" << graph.outDegree(99) << "\n";
+    std::cout << "inNeighbours(4)=" << join(graph.inNeighbours(4))
+              << ", inNeighbours(1)='" << join(graph.inNeighbours(1))
+              << "' (empty: nothing points at the root)\n";
     std::cout << "edges:      ";
     for (const auto& e : graph.edges()) std::cout << e.first << "->" << e.second << " ";
     std::cout << "\n";

@@ -314,6 +314,9 @@ void testGraph() {
     CHECK(graph.inDegree(1) == 0);           // nothing points at the root
     CHECK(graph.outDegree(99) == 0);         // missing vertex
     CHECK(graph.inDegree(99) == 0);
+    CHECK(vecEq(graph.inNeighbours(4), std::vector<int>{2, 3}));  // edges 2->4 and 3->4
+    CHECK(graph.inNeighbours(1).empty());      // nothing points at the root
+    CHECK(graph.inNeighbours(99).empty());     // missing vertex
     CHECK(vecEq(graph.edges(), std::vector<std::pair<int, int>>{
         {1, 2}, {1, 3}, {2, 4}, {3, 4}, {3, 5}, {4, 6}, {5, 6}}));
 
