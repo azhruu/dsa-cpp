@@ -18,7 +18,7 @@
 | Trees | AVL Tree (self-balancing via rotations, stays O(log n) on sorted input) |
 | Heaps | Max/Min Heap (array-backed, push/pop in O(log n), O(n) heapify) + heap sort |
 | Hash Tables | Hash Table (separate chaining, rehash at load factor 0.75) |
-| Graphs | Graph (adjacency list, BFS/DFS, directed + undirected edges, Dijkstra shortest path + path reconstruction, shortestPathLength() distance-only query, hasPath() reachability query, topologicalSort() dependency order, isCyclic() cycle check, reverse() transpose with weights preserved, connectedComponents() weakly connected groups, vertex/edge removal, removeUndirectedEdge() drops both directions of an undirected edge, in/out-degree queries, inNeighbours() predecessors query, edges() listing every directed edge, clear() to empty and reuse) |
+| Graphs | Graph (adjacency list, BFS/DFS, directed + undirected edges, Dijkstra shortest path + path reconstruction, shortestPathLength() distance-only query, hasPath() reachability query, topologicalSort() dependency order, isCyclic() cycle check, reverse() transpose with weights preserved, connectedComponents() weakly connected groups, vertex/edge removal, removeUndirectedEdge() drops both directions of an undirected edge, in/out-degree queries, inNeighbours() predecessors query, isolatedVertices() listing vertices with no edges in or out, edges() listing every directed edge, clear() to empty and reuse) |
 
 ## Build & run
 

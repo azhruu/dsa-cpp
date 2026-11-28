@@ -365,6 +365,20 @@ void testGraph() {
     oneWay.addEdge(1, 2); oneWay.addEdge(3, 1);  // 3 can reach 1, not vice versa
     CHECK(oneWay.connectedComponents().size() == 1);  // direction ignored
 
+    // isolatedVertices(): no edges in or out. Only 6 qualifies here:
+    // 7 and 8 are joined by an edge, and every other vertex has one.
+    CHECK(vecEq(islands.isolatedVertices(), std::vector<int>{6}));
+    CHECK(graph.isolatedVertices().empty());       // every vertex is joined
+    CHECK(emptyGraph.isolatedVertices().empty());
+    Graph<int> selfLoopOnly;
+    selfLoopOnly.addVertex(1); selfLoopOnly.addVertex(2);
+    selfLoopOnly.addEdge(1, 1);  // a self-loop is still an edge
+    CHECK(vecEq(selfLoopOnly.isolatedVertices(), std::vector<int>{2}));
+    Graph<int> targetOnly;
+    targetOnly.addEdge(1, 2); targetOnly.addVertex(3);
+    CHECK(vecEq(targetOnly.isolatedVertices(), std::vector<int>{3}));
+    // 2 is only ever a target, so it is not isolated either.
+
     // reverse() (transpose): every edge flips direction, vertices and
     // weights are kept, and the original graph is untouched.
     Graph<int> reversed = graph.reverse();

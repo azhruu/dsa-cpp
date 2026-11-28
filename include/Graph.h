@@ -25,6 +25,7 @@
 // transpose: every edge flipped, weights preserved, original untouched.
 // connectedComponents() groups vertices joined by an edge in either
 // direction (weakly connected components), ignoring edge direction.
+// isolatedVertices() lists the vertices with no edges in or out.
 //
 // Weighted edges (addWeightedEdge) carry a non-negative double weight
 // for Dijkstra's algorithm. Edges added with plain addEdge count as
@@ -185,6 +186,21 @@ public:
             for (const T& n : pair.second) {
                 if (n == v) { out.push_back(pair.first); break; }
             }
+        }
+        return out;
+    }
+
+    // Isolated vertices: vertices with no edges in or out (in-degree
+    // and out-degree both 0), so they take part in nothing — the
+    // complement of the vertices that appear in edges(). Listed in
+    // sorted vertex order (vertices are stored in a map); an empty
+    // graph has none. A self-loop makes a vertex non-isolated, and a
+    // vertex that is only ever a target is not isolated either.
+    std::vector<T> isolatedVertices() const {
+        std::vector<T> out;
+        for (const auto& pair : adjacency_) {
+            if (!pair.second.empty()) continue;  // has outgoing edges
+            if (inDegree(pair.first) == 0) out.push_back(pair.first);
         }
         return out;
     }

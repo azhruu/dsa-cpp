@@ -186,6 +186,8 @@ int main() {
     for (const auto& c : islands.connectedComponents()) {
         std::cout << "[" << join(c) << "] ";
     }
+    std::cout << "isolated:   " << join(islands.isolatedVertices())
+              << " (vertex 6: added but joined to nothing)\n";
     Graph<int> emptyGraph;
     std::cout << "(empty graph: " << emptyGraph.connectedComponents().size()
               << " components)\n";

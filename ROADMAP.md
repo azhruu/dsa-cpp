@@ -25,3 +25,4 @@ Each item lands as one complete, tested change.
 - [x] Graph connectedComponents() weakly connected groups, ignoring edge direction (polish)
 - [x] Graph shortestPathLength() distance-only query (0 for start == goal, infinity when unreachable or a vertex is missing), so callers needing only the cost do not build the route (polish)
 - [x] Graph inNeighbours() lists every predecessor of a vertex, complementing neighbours() (polish)
+- [x] Graph isolatedVertices() lists vertices with no edges in or out, complementing connectedComponents() (polish)
